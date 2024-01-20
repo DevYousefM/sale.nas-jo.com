@@ -12,5 +12,5 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ftp.yousef-mohamed.com
-        username: yousef-mohamed.com
+        username: backyf@yousef-mohamed.com
         password: ${{ secrets.ftp_password }}
