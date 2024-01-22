@@ -12,7 +12,6 @@ class ModalsController extends Controller
 
     public function index(Request $request)
     {
-        // $categories = Category::paginate(15);
         $data = $request->all();
         $modals =  Modal::whereHas('translations', function ($query) use ($request) {
             return $query->where('brand', 'like', '%' . $request->search . '%');
@@ -43,15 +42,6 @@ class ModalsController extends Controller
 
     public function update(ModalRequest $request, $id)
     {
-        // $rules = [];
-
-        // foreach (config('translatable.locales') as $lang) {
-        //     $rules["brand:$lang"] = "required";
-        //     $rules["modal:$lang"] = "required";
-        // }
-
-        // $request->validate($rules);
-
         $request_data = $request->all();
         foreach (config('translatable.locales') as $key => $lang) {
             $except[$key] = "id:$lang";
