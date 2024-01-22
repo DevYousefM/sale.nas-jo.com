@@ -39,13 +39,10 @@ class ModalsController extends Controller
         }
 
         // Store the modals as JSON
-        $modalsData = [];
         foreach (config('translatable.locales') as $lang) {
-            $modalsData[$lang] = $request_data["modal:$lang"];
+            $modal->translateOrNew($lang)->modals = $request_data["modal:$lang"];
         }
-
-        $modal->modals = $modalsData; // Assuming modals is an array attribute
-
+        
         $modal->save(); // Save the model and its translations
 
         session()->flash('success', __('admin.created_successfully'));
