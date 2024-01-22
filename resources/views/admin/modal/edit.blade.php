@@ -6,7 +6,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><span><a href="{{ route('modals.index') }}">
-                            {{ __('admin.subcategories') }} </a> </span> / {{ $subcategory->name }} / {{ __('admin.edit') }}
+                            {{ __('admin.subcategories') }} </a> </span> / {{ $modal->brand }} / {{ __('admin.edit') }}
             </h4>
             <div class="row mb-4">
                 <div class="row">
