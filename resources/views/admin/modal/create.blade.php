@@ -31,22 +31,20 @@
                                         </div>
                                     @endforeach
 
-                                    @foreach (config('translatable.locales') as $lang)
-                                        <div class="mb-3 row">
-                                            <label for="modal_{{ $lang }}" class="col-md-2 col-form-label">{{ __('admin.modal_'.$lang) }}</label>
-                                            <div class="col-md-10 col-lg-7">
-                                                <input class="form-control" type="text" name="modal:{{ $lang }}[]" id="modal_{{ $lang }}" />
+                                    <div class="mb-3 row" id="modalFieldsContainer">
+                                        <label class="col-md-2 col-form-label">{{ __('admin.modal') }}</label>
+                                        <div class="col-md-10 col-lg-7">
+                                            <div class="modal-field">
+                                                <input class="form-control" type="text" name="modal[]" />
                                             </div>
                                         </div>
-                                    @endforeach
+                                    </div>
 
                                     <div class="col-12">
                                         <button type="button" class="btn btn-primary" id="addModalField">{{ __('admin.add_modal_field') }}</button>
                                     </div>
 
-                                    <div id="additionalModalFields"></div>
-
-                                    <div class="col-12 mt-3">
+                                    <div class="col-12">
                                         <button type="submit" class="btn btn-primary">{{ __('admin.add') }}</button>
                                     </div>
                                 </form>
@@ -65,17 +63,18 @@
             document.getElementById('addModalField').addEventListener('click', function () {
                 modalCounter++;
 
-                @foreach (config('translatable.locales') as $lang)
-                    var additionalModalField = `
-                        <div class="mb-3 row">
-                            <label for="additional_modal_{{ $lang }}_${modalCounter}" class="col-md-2 col-form-label">{{ __('admin.modal_'.$lang) }} ${modalCounter}</label>
-                            <div class="col-md-10 col-lg-7">
-                                <input class="form-control" type="text" name="modal:{{ $lang }}[]" id="additional_modal_{{ $lang }}_${modalCounter}" />
-                            </div>
+                var modalField = document.createElement('div');
+                modalField.className = 'mb-3 row';
+                modalField.innerHTML = `
+                    <label class="col-md-2 col-form-label">{{ __('admin.modal') }} ${modalCounter}</label>
+                    <div class="col-md-10 col-lg-7">
+                        <div class="modal-field">
+                            <input class="form-control" type="text" name="modal[]" />
                         </div>
-                    `;
-                    document.getElementById('additionalModalFields').insertAdjacentHTML('beforeend', additionalModalField);
-                @endforeach
+                    </div>
+                `;
+
+                document.getElementById('modalFieldsContainer').appendChild(modalField);
             });
         });
     </script>
