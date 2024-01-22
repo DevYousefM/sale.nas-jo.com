@@ -41,7 +41,7 @@ class ModalsController extends Controller
     }
 
 
-    public function update(ModalRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $request_data = $request->all();
         foreach (config('translatable.locales') as $key => $lang) {
