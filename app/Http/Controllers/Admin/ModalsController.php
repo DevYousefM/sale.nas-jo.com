@@ -27,18 +27,29 @@ class ModalsController extends Controller
 
     public function store(ModalRequest $request)
     {
-        return $request;
-        // $request_data = $request->all();
+        // return $request;
+        $request_data = $request->all();
 
-        // $modal = Modal::create($request_data);
+        // Create a new Modal instance with non-translatable attributes
+        $modal = new Modal();
+        $modal->save();
 
-        // foreach (config('translatable.locales') as $lang) {
-        //     $modal->translateOrNew('modals', $lang, $request_data["modal:$lang"]);
-        // }
-        // $modal->save();
+        // Store the translated values for the brand attribute
+        foreach (config('translatable.locales') as $lang) {
+            $modal->translateOrNew($lang)->brand = $request_data["brand:$lang"];
+        }
 
-        // session()->flash('success', __('admin.created_successfully'));
-        // return redirect()->route('modals.index');
+        // Store the modals as JSON
+        $modalsData = [];
+        foreach (config('translatable.locales') as $lang) {
+            $modalsData[$lang] = $request_data["modal:$lang"];
+        }
+        $modal->modals = $modalsData;
+
+        $modal->save(); // Save the model and its translations
+
+        session()->flash('success', __('admin.created_successfully'));
+        return redirect()->route('modals.index');
     }
 
     public function edit($id)
