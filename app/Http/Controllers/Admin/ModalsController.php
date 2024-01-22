@@ -31,7 +31,7 @@ class ModalsController extends Controller
         $request_data = $request->all();
         Modal::create($request_data);
         session()->flash('success', __('admin.created_successfully'));
-        return redirect()->route('modal.index');
+        return redirect()->route('modals.index');
     }
 
     public function edit($id)
@@ -50,7 +50,7 @@ class ModalsController extends Controller
         $modal = Modal::findOrFail($id);
         $modal->update($request_data);
         session()->flash('success', __('admin.updated_successfully'));
-        return redirect()->route('modal.index');
+        return redirect()->route('modals.index');
     }
 
     public function destroy($id)
@@ -58,6 +58,6 @@ class ModalsController extends Controller
         $modal = Modal::findOrFail($id);
         $modal->delete();
         session()->flash('success', __('admin.deleted_successfully'));
-        return redirect()->route('modal.index');
+        return redirect()->route('modals.index');
     }
 }
