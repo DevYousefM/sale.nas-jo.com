@@ -27,18 +27,18 @@ class ModalsController extends Controller
 
     public function store(ModalRequest $request)
     {
+        return $request;
+        // $request_data = $request->all();
 
-        $request_data = $request->all();
+        // $modal = Modal::create($request_data);
 
-        $modal = Modal::create($request_data);
+        // foreach (config('translatable.locales') as $lang) {
+        //     $modal->translateOrNew('modals', $lang, $request_data["modal:$lang"]);
+        // }
+        // $modal->save();
 
-        foreach (config('translatable.locales') as $lang) {
-            $modal->translateOrNew('modals', $lang, $request_data["modal:$lang"]);
-        }
-        $modal->save();
-
-        session()->flash('success', __('admin.created_successfully'));
-        return redirect()->route('modals.index');
+        // session()->flash('success', __('admin.created_successfully'));
+        // return redirect()->route('modals.index');
     }
 
     public function edit($id)
