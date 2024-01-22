@@ -54,38 +54,48 @@
                                         <td class="name">{{ $item->modal }}</td>
 
                                         {{-- @foreach (config('translatable.locales') as $lang)
-                                    <td class="name_{{ $lang }}">{{ $item->translate($lang)->name }}</td>
-                                @endforeach --}}
+                                            <td class="name_{{ $lang }}">{{ $item->translate($lang)->name }}</td>
+                                        @endforeach --}}
                                         <td>
                                             {{-- @if (Auth::guard('admin')->user()->hasPermission('subcategory-update'))
                                         <a class="btn btn-sm btn-icon" href="{{ route("sub-category.edit",$item->id) }}"><i class="bx bx-edit"></i></a>
                                     @endif
+                                    --}}
 
-                                    @if (Auth::guard('admin')->user()->hasPermission('subcategory-delete'))
-                                        <button class="btn btn-sm btn-icon delete-record" data-bs-toggle="modal"  data-bs-target="#modalToggle{{ $item->id }}"><i class="bx bx-trash"></i></button>
-                                    @endif --}}
+                                            {{-- @if (Auth::guard('admin')->user()->hasPermission('modal-delete')) --}}
+                                            <button class="btn btn-sm btn-icon delete-record" data-bs-toggle="modal"
+                                                data-bs-target="#modalToggle{{ $item->id }}"><i
+                                                    class="bx bx-trash"></i></button>
+                                            {{-- @endif --}}
 
-                                            {{-- <div  class="modal fade"  id="modalToggle{{ $item->id }}"  aria-labelledby="modalToggleLabel"  tabindex="-1"  style="display: none"  aria-hidden="true"  >
-                                        <div class="modal-dialog modal-dialog-centered">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title" id="modalToggleLabel" style="color: red;">{{ __('admin.delete_item') }}</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div class="modal fade" id="modalToggle{{ $item->id }}"
+                                                aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalToggleLabel"
+                                                                style="color: red;">{{ __('admin.delete_item') }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">{{ __('admin.sure_delete_item') }}</div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ route('modals.destroy', $item->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit" class="btn btn-danger"
+                                                                    data-bs-target="#modalToggle2" data-bs-toggle="modal"
+                                                                    data-bs-dismiss="modal">
+                                                                    {{ __('admin.delete') }}
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">{{ __('admin.sure_delete_item') }}</div>
-                                            <div class="modal-footer">
-                                                <form action="{{ route('sub-category.destroy',$item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"   >
-                                                        {{ __('admin.delete') }}
-                                                      </button>
-                                                </form>
-
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div> --}}
                                         </td>
                                     </tr>
                                 @endforeach
