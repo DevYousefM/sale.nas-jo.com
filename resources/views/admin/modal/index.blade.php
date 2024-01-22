@@ -57,10 +57,12 @@
                                             <td class="name_{{ $lang }}">{{ $item->translate($lang)->name }}</td>
                                         @endforeach --}}
                                         <td>
-                                            {{-- @if (Auth::guard('admin')->user()->hasPermission('subcategory-update'))
-                                        <a class="btn btn-sm btn-icon" href="{{ route("sub-category.edit",$item->id) }}"><i class="bx bx-edit"></i></a>
-                                    @endif
-                                    --}}
+                                            {{-- @if (Auth::guard('admin')->user()->hasPermission('subcategory-update')) --}}
+                                                <a class="btn btn-sm btn-icon"
+                                                    href="{{ route('modals.edit', $item->id) }}"><i
+                                                        class="bx bx-edit"></i></a>
+                                            {{-- @endif --}}
+
 
                                             {{-- @if (Auth::guard('admin')->user()->hasPermission('modal-delete')) --}}
                                             <button class="btn btn-sm btn-icon delete-record" data-bs-toggle="modal"
