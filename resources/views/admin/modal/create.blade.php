@@ -43,10 +43,8 @@
                         </div>
                         </div>
                     </div>
-                    <!-- /FormValidation -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- / Content -->
 @endsection

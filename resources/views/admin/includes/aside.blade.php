@@ -191,13 +191,13 @@
                     </a>
                     <ul class="menu-sub">
                     <li class="menu-item">
-                        <a href="{{ route('modal.index') }}" class="menu-link" >
+                        <a href="{{ route('modals.index') }}" class="menu-link" >
                         <div data-i18n="{{ __("admin.modal") }}">{{ __("admin.modal") }}</div>
                         </a>
                     </li>
                     {{-- @if (Auth::guard('admin')->user()->hasPermission('modal-create')) --}}
                         <li class="menu-item">
-                            <a href="{{ route('modal.create') }}" class="menu-link">
+                            <a href="{{ route('modals.create') }}" class="menu-link">
                             <div data-i18n="{{ __("admin.add_new_modal") }}">{{ __("admin.add_new_modal") }}</div>
                             </a>
                         </li>
