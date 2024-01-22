@@ -6,7 +6,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><span><a href="{{ route('modals.index') }}">
-                            {{ __('admin.subcategories') }} </a> </span> / {{ $modal->brand }} / {{ __('admin.edit') }}
+                            {{ __('admin.modals') }} </a> </span> / {{ $modal->brand }} / {{ __('admin.edit') }}
             </h4>
             <div class="row mb-4">
                 <div class="row">
@@ -27,7 +27,7 @@
                                                 class="col-md-2 col-form-label">{{ __('admin.brand_' . $lang) }}</label>
                                             <div class="col-md-10 col-lg-7">
                                                 <input name="id:{{ $lang }}" hidden
-                                                    value="{{ $subcategory->translate($lang)->id }}" />
+                                                    value="{{ $modal->translate($lang)->id }}" />
                                                 <input class="form-control" type="text" name="brand:{{ $lang }}"
                                                     value="{{ $modal->translate($lang)->brand }}" id="html5-text-input" />
                                             </div>
