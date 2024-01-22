@@ -27,13 +27,13 @@ class ModalRequest extends FormRequest
         $rules = [];
 
         foreach (config('translatable.locales') as $lang) {
-            if ($method != 'put') {
-                $rules["brand:$lang"] = "required";
-                $rules["modal:$lang"] = "required";
-            } else {
-                $rules["brand:$lang"] = "required|" . $this->request->get("id:$lang");
-                $rules["modal:$lang"] = "required|" . $this->request->get("id:$lang");
-            }
+            $rules["brand:$lang"] = "required";
+            $rules["modal:$lang"] = "required";
+            // if ($method != 'put') {
+            // } else {
+            //     $rules["brand:$lang"] = "required|" . $this->request->get("id:$lang");
+            //     $rules["modal:$lang"] = "required|" . $this->request->get("id:$lang");
+            // }
         }
         return $rules;
     } //end of rules function
