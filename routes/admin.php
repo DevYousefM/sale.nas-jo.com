@@ -12,6 +12,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
     Route::group(['prefix' => 'admin' ,'middleware'=>'auth:admin' ,'namespace'=>'Admin'] , function(){
         Route::get('/','DashboardController@index')->name('admin.dashboard');
         Route::get('/logout','LoginController@logout')->name('admin.logout');
+        Route::resource('modals','ModalsController');
         Route::resource('category','CategoryController');
         Route::resource('sub-category','SubCategoryController');
         Route::resource('country','CountryController');

@@ -183,6 +183,29 @@
                 </li>
             @endif
 
+            {{-- @if (Auth::guard('admin')->user()->hasPermission('subcategory-read')) --}}
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-copy"></i>
+                    <div data-i18n="{{ __("admin.modal") }}">{{ __("admin.modal") }}</div>
+                    </a>
+                    <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('modal.index') }}" class="menu-link" >
+                        <div data-i18n="{{ __("admin.modal") }}">{{ __("admin.modal") }}</div>
+                        </a>
+                    </li>
+                    {{-- @if (Auth::guard('admin')->user()->hasPermission('modal-create')) --}}
+                        <li class="menu-item">
+                            <a href="{{ route('modal.create') }}" class="menu-link">
+                            <div data-i18n="{{ __("admin.add_new_modal") }}">{{ __("admin.add_new_modal") }}</div>
+                            </a>
+                        </li>
+                    {{-- @endif --}}
+                    </ul>
+                </li>
+            {{-- @endif --}}
+
 
               @if (Auth::guard('admin')->user()->hasPermission('post-read'))
                 <li class="menu-item">
