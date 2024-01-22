@@ -33,8 +33,9 @@ class ModalsController extends Controller
         $modal = Modal::create($request_data);
 
         foreach (config('translatable.locales') as $lang) {
-            $modal->setTranslation('modals', $lang, $request_data["modal:$lang"]);
+            $modal->translateOrNew('modals', $lang, $request_data["modal:$lang"]);
         }
+        $modal->saveTranslations();
 
         session()->flash('success', __('admin.created_successfully'));
         return redirect()->route('modals.index');
