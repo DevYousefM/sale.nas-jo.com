@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modal;
-use App\Traits\CustomFunctions;
 use Illuminate\Http\Request;
 
 class ModalsController extends Controller
 {
-    use CustomFunctions;
 
     public function index(Request $request)
     {
