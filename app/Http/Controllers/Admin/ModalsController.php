@@ -14,7 +14,7 @@ class ModalsController extends Controller
         // $categories = Category::paginate(15);
         $data = $request->all();
         $modals =  Modal::whereHas('translations', function ($query) use ($request) {
-            return $query->where('name', 'like', '%' . $request->search . '%');
+            return $query->where('brand', 'like', '%' . $request->search . '%');
         })->paginate(15);
         return view('admin.modal.index', compact('modals', 'data'));
     }
