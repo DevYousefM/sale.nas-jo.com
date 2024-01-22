@@ -24,29 +24,28 @@ class ModalRequest extends FormRequest
     public function rules()
     {
         $method = $this->request->get('_method');
-        if($method != 'put'){
-            $rules = array();
-            foreach (config('translatable.locales') as  $lang) {
+        $rules = [];
+
+        foreach (config('translatable.locales') as $lang) {
+            if ($method != 'put') {
                 $rules["brand:$lang"] = "required";
-                $rules["brand:$lang"] = "required";
-            }
-        }else{
-            $rules = array();
-            foreach (config('translatable.locales') as  $lang) {
-                $rules["modal:$lang"] = "required".$this->request->get('id:'.$lang);
-                $rules["modal:$lang"] = "required".$this->request->get('id:'.$lang);
+                $rules["modal:$lang"] = "required";
+            } else {
+                $rules["brand:$lang"] = "required|" . $this->request->get("id:$lang");
+                $rules["modal:$lang"] = "required|" . $this->request->get("id:$lang");
             }
         }
         return $rules;
-    }//end of rules function
+    } //end of rules function
 
-    public function messages(){
+    public function messages()
+    {
         $messages = array();
         foreach (config('translatable.locales') as  $lang) {
-            $messages["modal:$lang".".required"] = __('admin.modal_'.$lang.'_required');
-            $messages["brand:$lang".".unique"] = __('admin.brand_'.$lang.'_unique');
+            $messages["modal:$lang" . ".required"] = __('admin.modal_' . $lang . '_required');
+            $messages["brand:$lang" . ".required"] = __('admin.brand_' . $lang . '_required');
         }
         return $messages;
-    }//end of messages
+    } //end of messages
 
 }//end of class
