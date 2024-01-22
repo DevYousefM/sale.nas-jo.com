@@ -35,8 +35,7 @@ class AssignGuard extends BaseMiddleware
             } catch (TokenExpiredException $e) {
                 return  $this -> returnError('401','Unauthenticated user');
             } catch (JWTException $e) {
-
-                return  $this -> returnError('', $e);
+                return  $this -> returnError('', $e->getMessage());
             }
 
         }
