@@ -14,7 +14,6 @@ class CreateModalTranslationsTable extends Migration
             $table->unsignedBigInteger('modal_id');
             $table->string('locale')->index();
             $table->string('brand');
-            $table->string('modal');
             $table->unique(['modal_id', 'locale']);
             $table->foreign('modal_id')->references('id')->on('modals')->cascadeOnDelete();
             $table->timestamps();

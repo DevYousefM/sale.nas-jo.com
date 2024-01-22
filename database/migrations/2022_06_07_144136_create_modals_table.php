@@ -15,6 +15,7 @@ class CreateModalsTable extends Migration
     {
         Schema::create('modals', function (Blueprint $table) {
             $table->id();
+            $table->json("modals");
             $table->timestamps();
         });
     }

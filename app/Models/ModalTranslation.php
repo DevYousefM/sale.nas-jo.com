@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class ModalTranslation extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['brand','modal'];
-}//end of class
+    protected $fillable = ['brand', "modals"];
+}
