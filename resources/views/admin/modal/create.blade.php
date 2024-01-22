@@ -21,7 +21,7 @@
                                 @foreach (config('translatable.locales') as $lang)
 
                                     <div class="mb-3 row">
-                                        <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('admin.name_'.$lang) }}</label>
+                                        <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('admin.brand_'.$lang) }}</label>
                                         <div class="col-md-10 col-lg-7">
                                           <input class="form-control" type="text" name="brand:{{ $lang }}" id="html5-text-input" />
                                         </div>
@@ -29,7 +29,7 @@
                                 @endforeach
                                 @foreach (config('translatable.locales') as $lang)
                                     <div class="mb-3 row">
-                                        <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('admin.name_'.$lang) }}</label>
+                                        <label for="html5-text-input" class="col-md-2 col-form-label">{{ __('admin.modal_'.$lang) }}</label>
                                         <div class="col-md-10 col-lg-7">
                                           <input class="form-control" type="text" name="modal:{{ $lang }}" id="html5-text-input" />
                                         </div>

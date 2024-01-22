@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ModalRequest;
 use App\Models\Modal;
 use Illuminate\Http\Request;
 
@@ -25,12 +26,8 @@ class ModalsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ModalRequest $request)
     {
-        $request->validate([
-            "brand" => "required",
-            "modal" => "required"
-        ]);
         $request_data = $request->all();
         Modal::create($request_data);
         session()->flash('success', __('admin.created_successfully'));
@@ -44,7 +41,7 @@ class ModalsController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(ModalRequest $request, $id)
     {
         $request_data = $request->all();
         foreach (config('translatable.locales') as $key => $lang) {
