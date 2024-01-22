@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Modal\Modal;
+use App\Models\Modal;
 use App\Traits\CustomFunctions;
 use Illuminate\Http\Request;
 

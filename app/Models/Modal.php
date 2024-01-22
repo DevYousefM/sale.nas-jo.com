@@ -16,5 +16,4 @@ class Modal extends Model implements TranslatableContract
     // {
     //     return $this->belongsToMany(SubCategory::class, 'category_sub_category');
     // }
-
 }
