@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modal;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
