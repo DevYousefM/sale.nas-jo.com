@@ -27,7 +27,6 @@ class ModalsController extends Controller
 
     public function store(ModalRequest $request)
     {
-        // return $request;
         $request_data = $request->all();
 
         // Create a new Modal instance with non-translatable attributes
@@ -44,7 +43,8 @@ class ModalsController extends Controller
         foreach (config('translatable.locales') as $lang) {
             $modalsData[$lang] = $request_data["modal:$lang"];
         }
-        $modal->modals = $modalsData;
+
+        $modal->modals = $modalsData; // Assuming modals is an array attribute
 
         $modal->save(); // Save the model and its translations
 
