@@ -43,6 +43,15 @@ class ModalsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $rules = [];
+
+        foreach (config('translatable.locales') as $lang) {
+            $rules["brand:$lang"] = "required";
+            $rules["modal:$lang"] = "required";
+        }
+
+        $request->validate($rules);
+
         $request_data = $request->all();
         foreach (config('translatable.locales') as $key => $lang) {
             $except[$key] = "id:$lang";
