@@ -29,19 +29,16 @@ class ModalsController extends Controller
     {
         $request_data = $request->all();
 
-        // Create a new Modal instance with non-translatable attributes
         $modal = new Modal();
         $modal->save();
 
-        // Store the translated values for the brand attribute
         foreach (config('translatable.locales') as $lang) {
             $modal->translateOrNew($lang)->brand = $request_data["brand:$lang"];
         }
 
-        // Store the modals as JSON in one language (e.g., 'en')
         $modal->modals = json_encode($request_data['modal:en']);
 
-        $modal->save(); // Save the model and its translations
+        $modal->save();
 
         session()->flash('success', __('admin.created_successfully'));
         return redirect()->route('modals.index');

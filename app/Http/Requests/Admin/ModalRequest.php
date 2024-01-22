@@ -28,19 +28,23 @@ class ModalRequest extends FormRequest
 
         foreach (config('translatable.locales') as $lang) {
             $rules["brand:$lang"] = "required";
-            $rules["modal:$lang"] = "required";
         }
+        $rules["modals"] = "required|array|min:1";
+
         return $rules;
     }
 
     public function messages()
     {
-        $messages = array();
-        foreach (config('translatable.locales') as  $lang) {
-            $messages["modal:$lang" . ".required"] = __('admin.modal_' . $lang . '_required');
-            $messages["brand:$lang" . ".required"] = __('admin.brand_' . $lang . '_required');
-        }
-        return $messages;
-    } //end of messages
+        $messages = [];
 
+        foreach (config('translatable.locales') as $lang) {
+            $messages["brand:$lang.required"] = __('admin.brand_' . $lang . '_required');
+            $messages["modal.required"] = __('admin.modal_' . $lang . '_required');
+            $messages["modal.array"] = __('admin.modal_' . $lang . '_array');
+            $messages["modal.min"] = __('admin.modal_' . $lang . '_min');
+        }
+
+        return $messages;
+    }
 }//end of class
