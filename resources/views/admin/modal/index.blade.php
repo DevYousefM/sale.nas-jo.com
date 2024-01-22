@@ -14,7 +14,7 @@
                 <div class="card-header border-bottom col-5">
                     <h5 class="card-title">{{ __('admin.modal') }}</h5>
                     <div class="header body">
-                        <form method="get" action="{{ route('modal.index') }}">
+                        <form method="get" action="{{ route('modals.index') }}">
                             <div class="row">
                                 <div class="col-lg-6 col-md-2 col-sm-12">
                                     <div class="input-group m-b-0">
