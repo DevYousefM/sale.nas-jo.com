@@ -9,7 +9,7 @@ use Astrotomic\Translatable\Translatable;
 class Modal extends Model implements TranslatableContract
 {
     use Translatable;
-    public $translatedAttributes = ['brand', 'model'];
+    public $translatedAttributes = ['brand', 'modal'];
     protected $fillable = ['id'];
 
     // public function subcategories()
