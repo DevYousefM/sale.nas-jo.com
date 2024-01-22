@@ -11,7 +11,7 @@ class Modal extends Model implements TranslatableContract
     use Translatable;
 
     protected $fillable = ['brand', 'modals'];
-    public $translatedAttributes = ['brand', 'modals'];
+    public $translatedAttributes = ['brand'];
     protected $casts = ['modals' => 'json'];
 
     // public function subcategories()
