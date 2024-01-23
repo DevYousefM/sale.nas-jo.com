@@ -136,9 +136,7 @@ class PostController extends Controller
         $adminNotify->status = 1;
         $adminNotify->save();
 
-        return ["categories" => $categories, "countries" => $countries, "post" => $post, "cities" => $cities, "subcategories" => $subcategories, "clients" => $clients];
-
-        // return view('admin.post.show', compact('categories', 'countries', 'post', 'cities', 'subcategories', 'clients'));
+        return view('admin.post.show', compact('categories', 'countries', 'post', 'cities', 'subcategories', 'clients'));
     } //end of show function
 
     /**
