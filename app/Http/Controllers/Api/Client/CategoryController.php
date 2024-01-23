@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Traits\GeneralTrait;
 use App;
 use App\Models\Modal;
+use App\Models\ModalTranslation;
 
 class CategoryController extends Controller
 {
@@ -55,8 +56,10 @@ class CategoryController extends Controller
         }
 
         // Search for Modals with brand equal to subcategory names
-        $modals = Modal::whereIn('brand', $subcategoryNames)->get();
-
+        $modals = Modal::whereHas('translations', function ($query) use ($subcategoryNames, $lang) {
+            $query->whereIn('brand', $subcategoryNames)
+                ->where('locale', $lang);
+        })->get();
         return $this->returnData('data', $modals);
     } //end of all_subcategories function
 
