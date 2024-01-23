@@ -5,44 +5,51 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><span><a href="{{ route('modals.index') }}">
-                            {{ __('admin.modals') }} </a> </span> / {{ $modal->brand }} / {{ __('admin.edit') }}
+            <h4 class="fw-bold py-3 mb-4">
+                <span class="text-muted fw-light">
+                    <a href="{{ route('category.index') }}"> {{ __('admin.subcategories') }} </a> /
+                </span>
+                {{ __('admin.edit') }}
             </h4>
             <div class="row mb-4">
                 <div class="row">
                     <!-- FormValidation -->
                     <div class="col-12">
                         <div class="card">
-                            <h5 class="card-header"> {{ __('admin.edit') }}</h5>
+                            <h5 class="card-header"> {{ __('admin.edit_modal') }}</h5>
                             <div class="card-body">
                                 @include('admin.includes._errors')
-                                <form id="formValidationExamples" class="row g-3"
-                                    action="{{ route('modals.update', $modal->id) }}" method="POST">
+                                <form id="formValidationExamples" class="row g-3" action="{{ route('modals.update', $modal->id) }}" method="POST">
                                     @csrf
-                                    @method('put')
+                                    @method('PUT')
 
                                     @foreach (config('translatable.locales') as $lang)
                                         <div class="mb-3 row">
-                                            <label for="html5-text-input"
-                                                class="col-md-2 col-form-label">{{ __('admin.brand_' . $lang) }}</label>
+                                            <label for="brand_{{ $lang }}" class="col-md-2 col-form-label">{{ __('admin.brand_'.$lang) }}</label>
                                             <div class="col-md-10 col-lg-7">
-                                                <input name="id:{{ $lang }}" hidden
-                                                    value="{{ $modal->translate($lang)->id }}" />
-                                                <input class="form-control" type="text" name="brand:{{ $lang }}"
-                                                    value="{{ $modal->translate($lang)->brand }}" id="html5-text-input" />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label for="html5-text-input"
-                                                class="col-md-2 col-form-label">{{ __('admin.modal_' . $lang) }}</label>
-                                            <div class="col-md-10 col-lg-7">
-                                                <input name="id:{{ $lang }}" hidden
-                                                    value="{{ $modal->translate($lang)->id }}" />
-                                                <input class="form-control" type="text" name="modal:{{ $lang }}"
-                                                    value="{{ $modal->translate($lang)->modal }}" id="html5-text-input" />
+                                                <input class="form-control" type="text" name="brand:{{ $lang }}" id="brand_{{ $lang }}" value="{{ $modal->getTranslation('brand', $lang) }}" />
                                             </div>
                                         </div>
                                     @endforeach
+
+                                    <div id="modalFieldsContainer">
+                                        @foreach($modal->modals as $modalField)
+                                            <div class="mb-3 row">
+                                                <label class="col-md-2 col-form-label">{{ __('admin.modal') }}</label>
+                                                <div class="col-md-10 col-lg-7">
+                                                    <div class="modal-field">
+                                                        <input class="form-control" type="text" name="modals[]" value="{{ $modalField }}" />
+                                                        <button type="button" class="btn btn-danger delete-modal-field">{{ __('admin.delete_modal_field') }}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary" id="addModalField">{{ __('admin.add_modal_field') }}</button>
+                                    </div>
+
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">{{ __('admin.update') }}</button>
                                     </div>
@@ -50,10 +57,40 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /FormValidation -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- / Content -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalCounter = {{ count($modal->modals) }};
+
+            document.getElementById('addModalField').addEventListener('click', function () {
+                modalCounter++;
+
+                var modalField = document.createElement('div');
+                modalField.className = 'mb-3 row';
+                modalField.innerHTML = `
+                    <label class="col-md-2 col-form-label">{{ __('admin.modal') }} ${modalCounter}</label>
+                    <div class="col-md-10 col-lg-7">
+                        <div class="modal-field">
+                            <input class="form-control" type="text" name="modals[]" />
+                            <button type="button" class="btn btn-danger delete-modal-field">{{ __('admin.delete_modal_field') }}</button>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('modalFieldsContainer').appendChild(modalField);
+            });
+
+            // Event delegation for dynamically created delete buttons
+            document.getElementById('modalFieldsContainer').addEventListener('click', function (event) {
+                if (event.target && event.target.className == 'btn btn-danger delete-modal-field') {
+                    event.target.parentNode.parentNode.remove();
+                    modalCounter--;
+                }
+            });
+        });
+    </script>
 @endsection
