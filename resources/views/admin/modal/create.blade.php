@@ -35,7 +35,7 @@
                                         <label class="col-md-2 col-form-label">{{ __('admin.modal') }}</label>
                                         <div class="col-md-10 col-lg-7">
                                             <div class="modal-field">
-                                                <input class="form-control" type="text" name="modal[]" />
+                                                <input class="form-control" type="text" name="modals[]" />
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                     <label class="col-md-2 col-form-label">{{ __('admin.modal') }} ${modalCounter}</label>
                     <div class="col-md-10 col-lg-7">
                         <div class="modal-field">
-                            <input class="form-control" type="text" name="modal[]" />
+                            <input class="form-control" type="text" name="modals[]" />
                         </div>
                     </div>
                 `;
