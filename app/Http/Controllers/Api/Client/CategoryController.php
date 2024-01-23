@@ -55,7 +55,7 @@ class CategoryController extends Controller
             foreach ($modals as $modal) {
                 $modalsArray = array_merge($modalsArray, json_decode($modal->modals, true));
             }
-            $subcategoryData['modals'] = $modalsArray;
+            $subcategoryData['models'] = $modalsArray;
 
             $result[] = $subcategoryData;
         }

@@ -23,6 +23,7 @@
                                             <option value="">{{ __('admin.select') }}</option>
                                             <option value="checkedBox">{{ __('admin.checkedBox') }}</option>
                                             <option value="text">{{ __('admin.text') }}</option>
+                                            <option value="menu">{{ __('admin.menu') }}</option>
                                         </select>
                                     </div>
                                 </div>
