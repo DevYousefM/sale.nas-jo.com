@@ -52,19 +52,16 @@ class CategoryController extends Controller
 
         foreach ($subcategories as $subcategory) {
             $subcategoryData = $subcategory->toArray();
-
+    
             // Extract subcategory names in the current language
-            $subcategoryNames = [];
-            foreach ($subcategory->translations as $translation) {
-                $subcategoryNames[$translation->locale] = $translation->name;
-            }
-
+            $subcategoryNames = $subcategory->translations->pluck('name', 'locale')->toArray();
+    
             // Search for Modals with translated brand equal to subcategory names
-            $modals = Modal::whereTranslationIn('brand', $subcategoryNames)->get();
-
+            $modals = Modal::whereTranslation('brand', array_values($subcategoryNames))->get();
+    
             // Include the modals in the subcategory data
             $subcategoryData['modals'] = $modals->pluck('modals')->flatten()->unique()->toArray();
-
+    
             $result[] = $subcategoryData;
         }
 
