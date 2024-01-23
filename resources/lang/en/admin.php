@@ -197,4 +197,5 @@ return [
     'type_account' => 'Type Account',
     'owner' => 'Owner',
     'agent' => 'Agent',
+    'delete_modal_field'=>"Delete"
 ];

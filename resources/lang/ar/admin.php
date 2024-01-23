@@ -195,5 +195,6 @@ return [
     'modal' => 'الموديل',
     'brand' => 'الماركة',
     'add_new_modal' => 'أضافة موديل جديد',
+    'delete_modal_field' => "حذف"
 
 ];
