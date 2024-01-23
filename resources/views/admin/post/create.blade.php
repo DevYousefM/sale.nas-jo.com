@@ -273,20 +273,27 @@
                         }
                         if (val.inputType == 'menu') {
                             var feature = `
-                                <div class="col-md-6">
+                                <div class="col-md-6 menu-fields" >
                                     <label class="form-label" for="multicol-price">${val.name}</label>
                                     <div class="input-group">
                                         <input type="text" name="features[${val.id}]" id="multicol-price" class="form-control"  />
-                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                        <button class="btn btn-outline-secondary" class="menu-btn" data-id="${val.id}" type="button" id="button-addon2">+</button>
                                     </div>
                                 </div>
-                                
                             `;
                         }
                         $('.features').append(feature);
                     });
                 }
             });
+        });
+        $(document).on('click', '.menu-btn', function() {
+            var menu_id = $(this).data('id');
+
+            var inputElement =
+                `<input type="text" name="features[${menu_id}]" class="form-control" />`;
+
+            $(this).closest('.menu-fields').append(inputElement);
         });
     </script>
 @endsection
