@@ -36,7 +36,7 @@ class ModalsController extends Controller
             $modal->translateOrNew($lang)->brand = $request_data["brand:$lang"];
         }
 
-        $modal->modals = json_encode($request_data['modal:en']);
+        $modal->modals = json_encode($request_data['modals']);
 
         $modal->save();
 
