@@ -263,18 +263,19 @@
                                 </div>
                             `;
                         }
+                        if (val.inputType == 'checkbox') {
+                            var feature = `
+                                <div class="col-md-2" style=" margin-top: 50px;">
+                                    <input class="form-check-input" type="checkbox" name="features[${val.id}]" value="1" id="defaultCheck1" />
+                                    <label class="form-check-label" for="defaultCheck1"> ${val.name} </label>
+                                </div>
+                            `;
+                        }
                         if (val.inputType == 'menu') {
                             var feature = `
                                 <div class="col-md-6">
                                   <label class="form-label" for="multicol-price">${val.name}</label>
                                   <input type="text" name="features[${val.id}]" id="multicol-price" class="form-control"  />
-                                </div>
-                            `;
-                        } else {
-                            var feature = `
-                                <div class="col-md-2" style=" margin-top: 50px;">
-                                    <input class="form-check-input" type="checkbox" name="features[${val.id}]" value="1" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1"> ${val.name} </label>
                                 </div>
                             `;
                         }
