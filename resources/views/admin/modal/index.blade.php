@@ -51,16 +51,35 @@
                                         <td>
                                             {{ $item->brand }}
                                         </td>
-                                        <td class="name">{{ $item->modals }}</td>
+                                        <td class="name">
+                                            @php
+                                                $modals = json_decode($item->modals, true);
+                                            @endphp
 
+                                            @if (!empty($modals))
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        Modals
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        @foreach ($modals as $modal)
+                                                            <span class="dropdown-item">{{ $modal }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @else
+                                                No Modals
+                                            @endif
+                                        </td>
                                         {{-- @foreach (config('translatable.locales') as $lang)
                                             <td class="name_{{ $lang }}">{{ $item->translate($lang)->name }}</td>
                                         @endforeach --}}
                                         <td>
                                             {{-- @if (Auth::guard('admin')->user()->hasPermission('subcategory-update')) --}}
-                                                <a class="btn btn-sm btn-icon"
-                                                    href="{{ route('modals.edit', $item->id) }}"><i
-                                                        class="bx bx-edit"></i></a>
+                                            <a class="btn btn-sm btn-icon" href="{{ route('modals.edit', $item->id) }}"><i
+                                                    class="bx bx-edit"></i></a>
                                             {{-- @endif --}}
 
 
