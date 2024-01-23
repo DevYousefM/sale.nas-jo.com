@@ -53,22 +53,13 @@
                                         </td>
                                         <td class="name">
                                             @php
-                                                $_modals = json_decode($item->modals, true);
+                                                $modals = json_decode($item->modals, true);
                                             @endphp
 
-                                            @if (!empty($_modals))
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Modals
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @foreach ($_modals as $modal)
-                                                            <span class="dropdown-item">{{ $modal }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
+                                            @if (!empty($modals))
+                                                @foreach ($modals as $modal)
+                                                    {{ $modal . ' - ' }}
+                                                @endforeach
                                             @else
                                                 No Modals
                                             @endif
@@ -136,9 +127,6 @@
 
 @section('scripts')
     <!-- Vendors JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
-        integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('assets') }}/vendor/libs/moment/moment.js"></script>
     <script src="{{ asset('assets') }}/vendor/libs/datatables/jquery.dataTables.js"></script>
     <script src="{{ asset('assets') }}/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
