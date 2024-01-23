@@ -62,7 +62,6 @@ class ModalsController extends Controller
         $modal->update($request_data);
         session()->flash('success', __('admin.updated_successfully'));
         return redirect()->route('modals.index');
-        // return $request_data;
     }
 
     public function destroy($id)
