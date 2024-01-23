@@ -54,7 +54,7 @@ class CategoryController extends Controller
             $subcategoryNames[] = $subcategory->translateOrDefault($lang)->name;
         }
 
-        return $subcategoryNames;
+        return $subcategories;
         // return $this->returnData('data', $modals);
     } //end of all_subcategories function
 
