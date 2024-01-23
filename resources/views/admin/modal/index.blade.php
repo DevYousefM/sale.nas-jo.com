@@ -53,10 +53,10 @@
                                         </td>
                                         <td class="name">
                                             @php
-                                                $modals = json_decode($item->modals, true);
+                                                $_modals = json_decode($item->modals, true);
                                             @endphp
 
-                                            @if (!empty($modals))
+                                            @if (!empty($_modals))
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -64,7 +64,7 @@
                                                         Modals
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @foreach ($modals as $modal)
+                                                        @foreach ($_modals as $modal)
                                                             <span class="dropdown-item">{{ $modal }}</span>
                                                         @endforeach
                                                     </div>
