@@ -61,7 +61,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
         return $request;
         $request_data = $request->except('features', 'photos', 'photo', 'status');
