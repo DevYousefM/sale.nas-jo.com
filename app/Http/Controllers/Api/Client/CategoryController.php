@@ -40,8 +40,17 @@ class CategoryController extends Controller
         if($lang){
             App::setLocale($lang);
         }
+    
+        // Get all subcategories
         $subcategories = SubCategory::all();
-        return $this->returnData('data' , $subcategories);
+    
+        // Extract subcategory names
+        $subcategoryNames = $subcategories->pluck('name')->toArray();
+    
+        // Search for Modals with brand equal to subcategory names
+        $modals = Modal::whereIn('brand', $subcategoryNames)->get();
+    
+        return $this->returnData('data' , $modals);
     }//end of all_subcategories function
 
     public function getFeaturesBySubCategoryID($id,Request $request){
