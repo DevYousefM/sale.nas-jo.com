@@ -8,6 +8,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Traits\GeneralTrait;
 use App;
+use App\Models\Modal;
 
 class CategoryController extends Controller
 {
