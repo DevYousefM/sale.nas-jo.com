@@ -79,14 +79,14 @@
                 var modalField = document.createElement('div');
                 modalField.className = 'mb-3 row';
                 modalField.innerHTML = `
-            <label class="col-md-2 col-form-label">{{ __('admin.modal') }} ${modalCounter}</label>
-            <div class="col-md-10 col-lg-7">
-                <div class="modal-field">
-                    <input class="form-control" type="text" name="modals[]" />
-                    <button type="button" class="btn btn-danger delete-modal-field">{{ __('admin.delete_modal_field') }}</button>
-                </div>
-            </div>
-        `;
+                    <label class="col-md-2 col-form-label">{{ __('admin.modal') }} ${modalCounter}</label>
+                    <div class="col-md-10 col-lg-7">
+                        <div class="modal-field">
+                            <input class="form-control" type="text" name="modals[]" />
+                            <button type="button" class="btn btn-danger delete-modal-field">{{ __('admin.delete_modal_field') }}</button>
+                        </div>
+                    </div>
+                `;
 
                 document.getElementById('modalFieldsContainer').appendChild(modalField);
             });
