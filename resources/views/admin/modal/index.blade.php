@@ -57,9 +57,7 @@
                                             @endphp
 
                                             @if (!empty($_modals))
-                                                @foreach ($_modals as $modal)
-                                                    {{ $modal . ' - ' }}
-                                                @endforeach
+                                                {{ implode(' - ', $_modals) }}
                                             @else
                                                 No Modals
                                             @endif
