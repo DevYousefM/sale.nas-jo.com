@@ -54,14 +54,15 @@ class ModalsController extends Controller
     {
         $request_data = $request->all();
 
-        return $request_data;
-        // foreach (config('translatable.locales') as $key => $lang) {
-        //     $except[$key] = "id:$lang";
-        // }
-        // $modal = Modal::findOrFail($id);
-        // $modal->update($request_data);
-        // session()->flash('success', __('admin.updated_successfully'));
-        // return redirect()->route('modals.index');
+        foreach (config('translatable.locales') as $key => $lang) {
+            $except[$key] = "id:$lang";
+        }
+        $request_data["modals"] = json_encode($request_data['modals']);
+        $modal = Modal::findOrFail($id);
+        $modal->update($request_data);
+        session()->flash('success', __('admin.updated_successfully'));
+        return redirect()->route('modals.index');
+        // return $request_data;
     }
 
     public function destroy($id)
