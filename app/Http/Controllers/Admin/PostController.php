@@ -64,42 +64,57 @@ class PostController extends Controller
     // public function store(PostRequest $request)
     public function store(Request $request)
     {
-        // $request_data = $request->except('features','photos','photo','status');
-        // if($request->has('photo')){
-        //     $request_data['photo'] = $this->StoreFiles($request->photo , 'assets/files/post/images' , 'post_'.strtotime(Carbon::now()));
-        // }
-        // if(isset($request->status)){
-        //     $request_data['status'] = 1;
-        // }else{
-        //     $request_data['status'] = 0;
-        // }
-        // $post = Post::create($request_data);
+        $request_data = $request->except('features', 'photos', 'photo', 'status');
 
-        // $subcategory = SubCategory::find($request->sub_category_id);
-        // $features_ids = array();
-        // $features_array = array();
-        // foreach($subcategory->features as $index=>$feature){
-        //     $features_ids[$index] = $feature->id;
-        // }
-        // foreach ($features_ids as $value) {
-        //     if(array_key_exists($value ,$request->features) ){
-        //         $features_array[$value] = ['value' => $request->features["$value"]];
-        //     }else{
-        //         $features_array[$value] = ['value' =>  0];
-        //     }
-        // }
-        // $post->features()->sync($features_array);
+        if ($request->has('photo')) {
+            $request_data['photo'] = $this->StoreFiles($request->photo, 'assets/files/post/images', 'post_' . strtotime(Carbon::now()));
+        }
 
-        // foreach ($request->photos as  $index=>$value) {
-        //     $photo = $this->StoreFiles($value , 'assets/files/post/images' , 'post_'.$index.'_'.strtotime(Carbon::now()));
-        //     Photo::create([
-        //         'post_id' => $post->id,
-        //         'value' => $photo,
-        //     ]);
-        // }
-        // session()->flash('success', __('admin.created_successfully'));
-        // return redirect()->route('post.index');
-        return $request;
+        if (isset($request->status)) {
+            $request_data['status'] = 1;
+        } else {
+            $request_data['status'] = 0;
+        }
+
+        // Create the post
+        $post = Post::create($request_data);
+
+        // Process features
+        $subcategory = SubCategory::find($request->sub_category_id);
+        $features_ids = $subcategory->features->pluck('id')->toArray();
+        $features_array = [];
+
+        foreach ($features_ids as $featureId) {
+            $featureKey = (string) $featureId;
+
+            if (array_key_exists($featureKey, $request->features)) {
+                $featureValue = $request->features[$featureKey];
+
+                // Check if the value is an array
+                if (is_array($featureValue)) {
+                    $featureValue = json_encode($featureValue);
+                }
+
+                $features_array[$featureId] = ['value' => $featureValue];
+            } else {
+                $features_array[$featureId] = ['value' => 0];
+            }
+        }
+
+        // Sync features for the post
+        $post->features()->sync($features_array);
+
+        // Process photos
+        foreach ($request->photos as $index => $value) {
+            $photo = $this->StoreFiles($value, 'assets/files/post/images', 'post_' . $index . '_' . strtotime(Carbon::now()));
+            Photo::create([
+                'post_id' => $post->id,
+                'value' => $photo,
+            ]);
+        }
+
+        session()->flash('success', __('admin.created_successfully'));
+        return redirect()->route('post.index');
     } //end of store function
 
     /**
