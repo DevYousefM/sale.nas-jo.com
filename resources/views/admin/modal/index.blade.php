@@ -53,11 +53,11 @@
                                         </td>
                                         <td class="name">
                                             @php
-                                                $modals = json_decode($item->modals, true);
+                                                $_modals = json_decode($item->modals, true);
                                             @endphp
 
-                                            @if (!empty($modals))
-                                                @foreach ($modals as $modal)
+                                            @if (!empty($_modals))
+                                                @foreach ($_modals as $modal)
                                                     {{ $modal . ' - ' }}
                                                 @endforeach
                                             @else
