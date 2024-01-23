@@ -288,12 +288,13 @@
             });
         });
         $(document).on('click', '.menu-btn', function() {
-            var menu_id = $(this).data('id');
+            // var menu_id = $(this).data('id');
 
-            var inputElement =
-                `<input type="text" name="features[${menu_id}]" class="form-control" />`;
+            // var inputElement =
+            //     `<input type="text" name="features[${menu_id}]" class="form-control" />`;
 
-            $(this).closest('.menu-fields').append(inputElement);
+            // $(this).closest('.menu-fields').append(inputElement);
+            console.log("hello");
         });
     </script>
 @endsection
