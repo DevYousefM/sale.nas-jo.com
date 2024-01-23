@@ -60,8 +60,8 @@
                                     <select id="multicol-client" name="type_account"
                                         class="select2 form-select type_account" data-allow-clear="true">
                                         <option value="">{{ __('admin.select') }}</option>
-                                        <option value="">{{ __('admin.owner') }}</option>
-                                        <option value="">{{ __('admin.agent') }}</option>
+                                        <option value="owner">{{ __('admin.owner') }}</option>
+                                        <option value="agent">{{ __('admin.agent') }}</option>
                                     </select>
                                 </div>
                             </div>
