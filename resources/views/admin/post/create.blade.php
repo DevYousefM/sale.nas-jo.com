@@ -277,7 +277,7 @@
                                     <label class="form-label" for="multicol-price">${val.name}</label>
                                     <div class="input-group">
                                         <input type="text" name="features[${val.id}]" id="multicol-price" class="form-control"  />
-                                        <button class="btn btn-outline-secondary" class="menu-btn" data-id="${val.id}" type="button" id="button-addon2">+</button>
+                                        <button class="btn btn-outline-secondary menu-btn" data-id="${val.id}" type="button" id="button-addon2">+</button>
                                     </div>
                                 </div>
                             `;
