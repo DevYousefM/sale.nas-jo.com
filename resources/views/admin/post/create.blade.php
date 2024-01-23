@@ -273,11 +273,14 @@
                         }
                         if (val.inputType == 'menu') {
                             var feature = `
-                                <div class="col-md-6 input-group">
-                                  <label class="form-label" for="multicol-price">${val.name}</label>
-                                  <input type="text" name="features[${val.id}]" id="multicol-price" class="form-control"  />
-                                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="multicol-price">${val.name}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="features[${val.id}]" id="multicol-price" class="form-control"  />
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                    </div>
                                 </div>
+                                
                             `;
                         }
                         $('.features').append(feature);
