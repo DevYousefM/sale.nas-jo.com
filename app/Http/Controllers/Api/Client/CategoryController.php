@@ -59,6 +59,7 @@ class CategoryController extends Controller
             $query->whereIn('brand', $subcategoryNames)
                 ->where('locale', $lang);
         })->get();
+
         return $modals;
         // return $this->returnData('data', $modals);
     } //end of all_subcategories function
