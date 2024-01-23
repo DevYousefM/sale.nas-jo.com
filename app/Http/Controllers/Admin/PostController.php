@@ -63,6 +63,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+        return $request;
         $request_data = $request->except('features', 'photos', 'photo', 'status');
 
         if ($request->has('photo')) {
