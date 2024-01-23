@@ -45,25 +45,16 @@ class CategoryController extends Controller
             App::setLocale($lang);
         }
 
-        // Get all subcategories with translations
         $subcategories = SubCategory::with('translations')->get();
-
         $result = [];
-
         foreach ($subcategories as $subcategory) {
             $subcategoryData = $subcategory->toArray();
-
-            // Extract subcategory names in the current language
             $subcategoryNames = $subcategory->translations->pluck('name', 'locale')->toArray();
-
-            // Search for Modals with translated brand equal to subcategory names
             $modals = Modal::whereTranslation('brand', array_values($subcategoryNames))->get();
-            // Decode the JSON array in the 'modals' column
             $modalsArray = [];
             foreach ($modals as $modal) {
                 $modalsArray = array_merge($modalsArray, json_decode($modal->modals, true));
             }
-            // Include the modals in the subcategory data
             $subcategoryData['modals'] = $modalsArray;
 
             $result[] = $subcategoryData;
