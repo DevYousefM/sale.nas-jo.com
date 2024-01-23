@@ -54,13 +54,7 @@ class CategoryController extends Controller
             $subcategoryNames[] = $subcategory->translateOrDefault($lang)->name;
         }
 
-        // Search for Modals with brand equal to subcategory names
-        $modals = Modal::whereHas('translations', function ($query) use ($subcategoryNames, $lang) {
-            $query->whereIn('brand', $subcategoryNames)
-                ->where('locale', $lang);
-        })->get();
-
-        return $modals;
+        return $subcategoryNames;
         // return $this->returnData('data', $modals);
     } //end of all_subcategories function
 
