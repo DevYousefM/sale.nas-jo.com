@@ -31,7 +31,7 @@
                                             <div class="col-md-10 col-lg-7">
                                                 <input class="form-control" type="text" name="brand:{{ $lang }}"
                                                     id="brand_{{ $lang }}"
-                                                    value="{{ $modal->getTranslation('brand', $lang) }}" />
+                                                    value="{{ json_decode($modal->getTranslation('brand', $lang))->brand ?? '' }}" />
                                             </div>
                                         </div>
                                     @endforeach
@@ -96,7 +96,7 @@
                 if (event.target && event.target.className == 'btn btn-danger delete-modal-field') {
                     var modalFieldContainer = event.target.parentNode;
                     modalFieldContainer.parentNode
-                .remove(); // Remove the entire container (label + input + delete button)
+                        .remove(); // Remove the entire container (label + input + delete button)
                     modalCounter--;
                 }
             });
