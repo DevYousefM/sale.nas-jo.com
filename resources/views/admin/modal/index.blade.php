@@ -51,7 +51,7 @@
                                         <td>
                                             {{ $item->brand }}
                                         </td>
-                                        <td class="name">{{ $item->modal }}</td>
+                                        <td class="name">{{ $item->modals }}</td>
 
                                         {{-- @foreach (config('translatable.locales') as $lang)
                                             <td class="name_{{ $lang }}">{{ $item->translate($lang)->name }}</td>
