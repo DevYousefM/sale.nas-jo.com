@@ -12,7 +12,7 @@
             <!-- Users List Table -->
             <div class="card">
                 <div class="card-header border-bottom col-5">
-                    <h5 class="card-title">{{ __('admin.modal') }}</h5>
+                    <h5 class="card-title">{{ __('admin.modals') }}</h5>
                     <div class="header body">
                         <form method="get" action="{{ route('modals.index') }}">
                             <div class="row">
@@ -39,7 +39,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('admin.brand') }}</th>
-                                <th>{{ __('admin.modal') }}</th>
+                                <th>{{ __('admin.modals') }}</th>
                                 <th>{{ __('admin.actions') }}</th>
                             </tr>
                         </thead>
