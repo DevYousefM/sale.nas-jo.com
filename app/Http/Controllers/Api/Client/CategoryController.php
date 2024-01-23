@@ -64,7 +64,7 @@ class CategoryController extends Controller
                 $modalsArray = array_merge($modalsArray, json_decode($modal->modals, true));
             }
             // Include the modals in the subcategory data
-            $subcategoryData['modals'] = $modals->pluck('modals')->flatten()->unique()->toArray();
+            $subcategoryData['modals'] = $modalsArray;
 
             $result[] = $subcategoryData;
         }
