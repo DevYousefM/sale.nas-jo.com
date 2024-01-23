@@ -33,7 +33,7 @@
                                     @endforeach
 
                                     <div id="modalFieldsContainer">
-                                        @foreach($modal->modals as $modalField)
+                                        @foreach(json_decode($modal->modals, true) as $modalField)
                                             <div class="mb-3 row">
                                                 <label class="col-md-2 col-form-label">{{ __('admin.modal') }}</label>
                                                 <div class="col-md-10 col-lg-7">
@@ -64,7 +64,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var modalCounter = {{ count($modal->modals) }};
+            var modalCounter = {{ count(json_decode($modal->modals, true)) }};
 
             document.getElementById('addModalField').addEventListener('click', function () {
                 modalCounter++;
@@ -84,7 +84,6 @@
                 document.getElementById('modalFieldsContainer').appendChild(modalField);
             });
 
-            // Event delegation for dynamically created delete buttons
             document.getElementById('modalFieldsContainer').addEventListener('click', function (event) {
                 if (event.target && event.target.className == 'btn btn-danger delete-modal-field') {
                     event.target.parentNode.parentNode.remove();
