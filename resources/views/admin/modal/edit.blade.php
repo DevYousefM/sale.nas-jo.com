@@ -31,7 +31,7 @@
                                             <div class="col-md-10 col-lg-7">
                                                 <input class="form-control" type="text" name="brand:{{ $lang }}"
                                                     id="brand_{{ $lang }}"
-                                                    value="{{ json_decode($modal->getTranslation('brand', $lang))->brand ?? '' }}" />
+                                                    value="{{ $modal->translate($lang)->brand ?? '' }}" />
                                             </div>
                                         </div>
                                     @endforeach
