@@ -30,7 +30,6 @@ class ModalsController extends Controller
         $request_data = $request->all();
 
         $modal = new Modal();
-        $modal->save();
 
         foreach (config('translatable.locales') as $lang) {
             $modal->translateOrNew($lang)->brand = $request_data["brand:$lang"];
