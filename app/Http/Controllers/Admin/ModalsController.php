@@ -53,14 +53,15 @@ class ModalsController extends Controller
     public function update(ModalRequest $request, $id)
     {
         $request_data = $request->all();
-        
-        foreach (config('translatable.locales') as $key => $lang) {
-            $except[$key] = "id:$lang";
-        }
-        $modal = Modal::findOrFail($id);
-        $modal->update($request_data);
-        session()->flash('success', __('admin.updated_successfully'));
-        return redirect()->route('modals.index');
+
+        return $request_data;
+        // foreach (config('translatable.locales') as $key => $lang) {
+        //     $except[$key] = "id:$lang";
+        // }
+        // $modal = Modal::findOrFail($id);
+        // $modal->update($request_data);
+        // session()->flash('success', __('admin.updated_successfully'));
+        // return redirect()->route('modals.index');
     }
 
     public function destroy($id)
