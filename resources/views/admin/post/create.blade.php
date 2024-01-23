@@ -291,7 +291,7 @@
             var menu_id = $(this).data('id');
 
             var inputElement =
-                `<input type="text" name="features[${menu_id}]" class="form-control" />`;
+                `<input type="text" name="features[${menu_id}][]" class="form-control" />`;
 
             $(this).closest('.menu-fields').append(inputElement);
         });
