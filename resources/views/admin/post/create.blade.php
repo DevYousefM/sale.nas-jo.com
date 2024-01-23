@@ -263,7 +263,7 @@
                                 </div>
                             `;
                         }
-                        if (val.inputType == 'checkbox') {
+                        if (val.inputType == 'checkedBox') {
                             var feature = `
                                 <div class="col-md-2" style=" margin-top: 50px;">
                                     <input class="form-check-input" type="checkbox" name="features[${val.id}]" value="1" id="defaultCheck1" />
