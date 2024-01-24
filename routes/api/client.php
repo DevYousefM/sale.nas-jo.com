@@ -41,7 +41,7 @@ Route::group(['middleware' => ['api'],'prefix' => 'client','namespace' => 'Api\C
     Route::post('verify-account', 'AuthController@verify');
     Route::post('forget-password', 'AuthController@ForgetPassword');
     Route::get('app-setting' , 'AppSettingController@index');
-    // Route::post('logout', 'AuthController@logout')->middleware('auth.guard:client-api');
+    Route::post('logout', 'AuthController@logout')->middleware('auth.guard:client-api');
 });
 
 Route::group(['middleware' => ['api' ,'auth.guard:client-api'],'prefix' => 'client','namespace' => 'Api\Client'], function () {
