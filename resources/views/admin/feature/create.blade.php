@@ -63,34 +63,38 @@
 
     <script>
         // Add event listener to the select element
+        var numberOfField = 1;
         document.getElementById('exampleFormControlSelect2').addEventListener('change', function() {
-            // Get the selected option value
             var selectedOption = this.value;
 
-            // Get the container for menu fields
             var menuFieldsContainer = document.querySelector('.menu-fields-container');
 
-            // Remove existing menu fields
             while (menuFieldsContainer.firstChild) {
                 menuFieldsContainer.removeChild(menuFieldsContainer.firstChild);
             }
 
-            // Add menu fields if the selected option is "menu"
             if (selectedOption === 'menu') {
-                var numberOfFields = 1; // Set the desired number of fields
-                for (var i = 1; i <= numberOfFields; i++) {
-                    var feature = `
+                var feature = `
                         <div class="col-md-6 menu-fields">
-                            <label class="form-label" for="multicol-price">Value ${i}</label>
+                            <label class="form-label" for="multicol-price">Value ${numberOfField}</label>
                             <div class="input-group">
                                 <input type="text" name="values[]" class="form-control" />
-                                <button class="btn btn-outline-secondary menu-btn" type="button" id="button-addon2">+</button>
+                                <button class="btn btn-outline-secondary" id="add_value_field" type="button" id="button-addon2">+</button>
                             </div>
                         </div>
                     `;
-                    menuFieldsContainer.innerHTML += feature;
-                }
+                menuFieldsContainer.innerHTML += feature;
             }
+        });
+
+        $("#add_value_field").on('click', function() {
+            numberOfField++
+            var inputElement =
+                `<label class="form-label" for="multicol-price">Value ${numberOfField}</label>
+                <div class="input-group">
+                    <input type="text" name="values[]" class="form-control" />
+                </div>`;
+            $(this).closest('.menu-fields').append(inputElement);
         });
     </script>
 @endsection
