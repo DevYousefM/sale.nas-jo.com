@@ -60,23 +60,15 @@ class FeatureController extends Controller
     } //end of store fiunction
 
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $feature = Feature::findOrFail($id);
         if ($feature->inputType === "menu") {
             $menu = Menu::where("feature_id", $feature->id)->first();
             $menu->menu = json_decode($menu->menu);
-            // return view('admin.feature.edit', compact('feature', 'menu'));
-            return $menu;
+            return view('admin.feature.edit', compact('feature', 'menu'));
         }
-        // return view('admin.feature.edit', compact('feature'));
+        return view('admin.feature.edit', compact('feature'));
     } //end of edit function
 
     /**

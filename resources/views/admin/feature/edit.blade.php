@@ -40,9 +40,8 @@
                                                 <label class="form-label" for="multicol-price">Value
                                                     {{ $count }}</label>
                                                 <div class="input-group">
-                                                    <input type="text" value=name="values[]" class="form-control" />
-                                                    <button class="btn btn-outline-secondary" id="add_value_field"
-                                                        type="button" id="button-addon2">+</button>
+                                                    <input type="text" value="{{ $i }}" name="values[]"
+                                                        class="form-control" />
                                                 </div>
                                             </div>
                                             @php
