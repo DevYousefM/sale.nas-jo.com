@@ -77,7 +77,7 @@
 
             // Add menu fields if the selected option is "menu"
             if (selectedOption === 'menu') {
-                var numberOfFields = 3; // Set the desired number of fields
+                var numberOfFields = 1; // Set the desired number of fields
                 for (var i = 1; i <= numberOfFields; i++) {
                     var feature = `
                         <div class="col-md-6 menu-fields">
