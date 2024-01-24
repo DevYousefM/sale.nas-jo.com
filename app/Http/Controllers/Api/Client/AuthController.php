@@ -29,7 +29,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','sendSMS','verify','ForgetPassword','deleteAccount']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'sendSMS', 'verify', 'ForgetPassword', 'deleteAccount']]);
     }
 
     /**
@@ -48,41 +48,38 @@ class AuthController extends Controller
                 'mobile.required' => __('api.mobile_required'),
                 'password.required' =>  __('api.password_required'),
             ];
-            $validator = Validator::make($request->all() , $rules,$messages);
-            if($validator->fails()){
+            $validator = Validator::make($request->all(), $rules, $messages);
+            if ($validator->fails()) {
                 $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code,$validator);
+                return $this->returnValidationError($code, $validator);
             }
 
             // $credentials = request(['mobile', 'password']);
-            $credentials['mobile'] = $request->code_country.$request->mobile;
+            $credentials['mobile'] = $request->code_country . $request->mobile;
             $credentials['password'] = request('password');
             $token = Auth::guard('client-api')->attempt($credentials);
             if (!$token) {
-                return $this->returnError('E001' , 'بيانات الدخول غير صحيحة');
+                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
             }
 
             $client = Auth::guard('client-api')->user();
-            if($request->has('player_id')){
+            if ($request->has('player_id')) {
                 $client->player_id = $request->player_id;
             }
             $client->save();
             $client->api_token = $token;
-            return $this->returnData('client' ,$client);
-
-
+            return $this->returnData('client', $client);
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode() , $ex->getMessage());
+            return $this->returnError($ex->getCode(), $ex->getMessage());
         }
-
     }
 
-    public function sendSMS($mobileNumber,$code)
+    public function sendSMS($mobileNumber, $code)
     {
         $curl = curl_init();
         $from = "Mkanek";
         $to = $mobileNumber;
-        $message = "Confirmation Code : ".$code;
+        $message = "Confirmation Code : " . $code;
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.releans.com/v2/message",
             CURLOPT_RETURNTRANSFER => true,
@@ -127,58 +124,58 @@ class AuthController extends Controller
             'email.required' =>  __('api.email_required'),
             'password.required' =>  __('api.password_required'),
         ];
-        $validator = Validator::make($request->all() , $rules,$messages);
-        if($validator->fails()){
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
-            return $this->returnValidationError($code,$validator);
+            return $this->returnValidationError($code, $validator);
         }
 
 
-        $client = Client::where('mobile',$request->code_country.$request->mobile)->first();
-        if(!is_null($client)){
-            return $this->returnError('E001' , 'المستخدم موجود مسبقا');
+        $client = Client::where('mobile', $request->code_country . $request->mobile)->first();
+        if (!is_null($client)) {
+            return $this->returnError('E001', 'المستخدم موجود مسبقا');
         }
 
-        $request_data = $request->except('password','password_confirmation','photo','code_country','mobile');
-        if($request->has('photo')){
-            $request_data['photo'] = $this->StoreFiles($request->photo , 'assets/files/client/images' , 'client_'.strtotime(Carbon::now()));
+        $request_data = $request->except('password', 'password_confirmation', 'photo', 'code_country', 'mobile');
+        if ($request->has('photo')) {
+            $request_data['photo'] = $this->StoreFiles($request->photo, 'assets/files/client/images', 'client_' . strtotime(Carbon::now()));
         }
         $request_data['password'] = bcrypt($request->password);
-        $request_data['mobile'] = $request->code_country.$request->mobile;
+        $request_data['mobile'] = $request->code_country . $request->mobile;
         $client = Client::create($request_data);
 
         //send confirmation code
-        $code = rand(1000,9999);
-        $VerifyAccount = VerifyAccount::where('email' ,$request->email )->first();
-        if($VerifyAccount){
-            DB::table("password_resets")->where('email',$request->email)->update(['token' => $code]);
-        }else{
+        $code = rand(1000, 9999);
+        $VerifyAccount = VerifyAccount::where('email', $request->email)->first();
+        if ($VerifyAccount) {
+            DB::table("password_resets")->where('email', $request->email)->update(['token' => $code]);
+        } else {
             VerifyAccount::create([
-                'email'=> $request->email,
+                'email' => $request->email,
                 'token' => $code
             ]);
         }
-        $result = $this->sendSms($client->mobile,$code);
+        $result = $this->sendSms($client->mobile, $code);
 
         $admins = Admin::all();
         foreach ($admins as $key => $admin) {
             $player_id = $admin->player_id;
-            if(!is_null($player_id)){
+            if (!is_null($player_id)) {
                 $fields['include_player_ids'] = ["$player_id"];
-                $fields['url'] = route('client.show',$client->id);
-                $message =  __('admin.register_new_client',[],Config('app.locale')).' '.$client->username;
+                $fields['url'] = route('client.show', $client->id);
+                $message =  __('admin.register_new_client', [], Config('app.locale')) . ' ' . $client->username;
                 OneSignal::sendPush($fields, $message);
             }
         }
 
         AdminNotify::create([
             'client_id' => $client->id,
-            'message:en' => __('admin.notifiy_new_account',[],'en').$client->username,
-            'message:ar' => __('admin.notifiy_new_account',[],'ar').$client->username,
+            'message:en' => __('admin.notifiy_new_account', [], 'en') . $client->username,
+            'message:ar' => __('admin.notifiy_new_account', [], 'ar') . $client->username,
         ]);
 
         return $this->returnSuccessMessage(__('api.created_successfully'));
-    }//end of register function
+    } //end of register function
 
 
     public function ForgetPassword(Request $request)
@@ -186,31 +183,31 @@ class AuthController extends Controller
         $rules = [
             'mobile' => 'required',
         ];
-        $validator = Validator::make($request->all() , $rules);
-        if($validator->fails()){
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
-            return $this->returnValidationError($code,$validator);
+            return $this->returnValidationError($code, $validator);
         }
         $mobile = $request->mobile;
-        $client = Client::where('mobile' , $mobile)->first();
-        if(!$client){
-            return $this->returnError('E001' , 'الحساب غير موجود',404);
+        $client = Client::where('mobile', $mobile)->first();
+        if (!$client) {
+            return $this->returnError('E001', 'الحساب غير موجود', 404);
         }
-        $account = DB::table('password_resets')->where('email',$client->email)->first();
-        $code =  rand(0,9999);
-        if($account){
-            DB::table('password_resets')->where('email',$client->email)->update([
+        $account = DB::table('password_resets')->where('email', $client->email)->first();
+        $code =  rand(0, 9999);
+        if ($account) {
+            DB::table('password_resets')->where('email', $client->email)->update([
                 'token' => $code
             ]);
-        }else{
+        } else {
             VerifyAccount::create([
                 'email' => $client->email,
                 'token' => $code
             ]);
         }
-        $this->sendSMS($client->mobile,$code);
-        return $this->returnSuccessMessage('تم ارسال رمز التاكيد '.$code);
-    }//end of ForgetPassword function
+        $this->sendSMS($client->mobile, $code);
+        return $this->returnSuccessMessage('تم ارسال رمز التاكيد ' . $code);
+    } //end of ForgetPassword function
 
     /**
      * Get the authenticated User.
@@ -229,52 +226,55 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth("client-api")->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function verify(Request $request){
+    public function verify(Request $request)
+    {
         $rules = [
             'mobile' => 'required',
             'code' => 'required',
         ];
-        $validator = Validator::make($request->all() , $rules);
-        if($validator->fails()){
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
-            return $this->returnValidationError($code,$validator);
+            return $this->returnValidationError($code, $validator);
         }
-        $client = Client::where('mobile',$request->mobile)->first();
-        if($client){
-            $VerifyAccount = VerifyAccount::where('email' ,$client->email )->first();
-            if($VerifyAccount){
-                if($VerifyAccount->token == $request->code){
+        $client = Client::where('mobile', $request->mobile)->first();
+        if ($client) {
+            $VerifyAccount = VerifyAccount::where('email', $client->email)->first();
+            if ($VerifyAccount) {
+                if ($VerifyAccount->token == $request->code) {
                     $client->verify = true;
                     $client->save();
-                    DB::table("password_resets")->where('email',$client->email)->delete();
+                    DB::table("password_resets")->where('email', $client->email)->delete();
                     return $this->returnSuccessMessage(__('api.account_successfully_confirmed'));
-                }else{
+                } else {
                     return $this->returnSuccessMessage(__('dashboard.verify_code_invaild'));
                 }
-            }else{
+            } else {
                 return $this->returnSuccessMessage(__('dashboard.error'));
             }
-        }else{
+        } else {
             return $this->returnSuccessMessage(__('dashboard.error'));
         }
-    }//end of verify function
+    } //end of verify function
 
-    public function fcmUpdate(Request $request){
+    public function fcmUpdate(Request $request)
+    {
         $client = Client::find(auth()->guard('client-api')->user()->id);
         $client->fcm = $request->fcm;
         $client->save();
         return $this->returnSuccessMessage(__('dashboard.updated_successfully'));
     }
 
-    public function deleteAccount(Request $request){
+    public function deleteAccount(Request $request)
+    {
         $id = @auth()->guard('client-api')->user()->id;
-        if($id){
+        if ($id) {
             $client = Client::find($id);
-            if($client){
+            if ($client) {
                 $client->delete();
                 JWTAuth::setToken($client->token)->invalidate();
                 // Artisan::call('cache:clear');
@@ -283,4 +283,3 @@ class AuthController extends Controller
         }
     }
 }//end of class
-
