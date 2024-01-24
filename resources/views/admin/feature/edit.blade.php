@@ -45,7 +45,7 @@
                                                 </div>
                                             </div>
                                             @php
-                                                $count + 1;
+                                                $count++;
                                             @endphp
                                         @endforeach
                                     @endisset
