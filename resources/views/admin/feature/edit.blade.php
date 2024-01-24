@@ -35,19 +35,23 @@
                                         $count = 1;
                                     @endphp
                                     @isset($menu)
-                                        @foreach ($menu->menu as $i)
-                                            <div class="col-md-6 menu-fields">
-                                                <label class="form-label" for="multicol-price">Value
-                                                    {{ $count }}</label>
-                                                <div class="input-group">
-                                                    <input type="text" value="{{ $i }}" name="values[]"
-                                                        class="form-control" />
+                                        <div class="menu-fields">
+                                            <button class="btn btn-outline-secondary" data-count="{{ $count }}"
+                                                id="add_value_field" type="button" id="button-addon2">+</button>
+                                            @foreach ($menu->menu as $i)
+                                                <div class="col-md-6">
+                                                    <label class="form-label" for="multicol-price">Value
+                                                        {{ $count }}</label>
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{ $i }}" name="values[]"
+                                                            class="form-control" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            @php
-                                                $count++;
-                                            @endphp
-                                        @endforeach
+                                                @php
+                                                    $count++;
+                                                @endphp
+                                            @endforeach
+                                        </div>
                                     @endisset
                                     <div class="col-12">
                                         <button type="submit" name="submitButton"
@@ -63,4 +67,19 @@
         </div>
     </div>
     <!-- / Content -->
+    <script>
+        document.addEventListener('click', function(event) {
+            var addValueField = document.getElementById('add_value_field');
+
+            if (event.target && event.target.id === 'add_value_field') {
+
+                var inputElement =
+                    `<label class="form-label" for="multicol-price">New Value</label>
+                    <div class="input-group">
+                        <input type="text" name="values[]" class="form-control" />
+                    </div>`;
+                addValueField.closest('.menu-fields').innerHTML += inputElement;
+            }
+        });
+    </script>
 @endsection
