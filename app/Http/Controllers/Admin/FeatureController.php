@@ -70,7 +70,12 @@ class FeatureController extends Controller
     public function edit($id)
     {
         $feature = Feature::findOrFail($id);
-        return view('admin.feature.edit', compact('feature'));
+        if ($feature->inputType === "menu") {
+            $menu = Menu::where("feature_id", $feature->id)->first();
+            // return view('admin.feature.edit', compact('feature', 'menu'));
+            return $menu;
+        }
+        // return view('admin.feature.edit', compact('feature'));
     } //end of edit function
 
     /**
