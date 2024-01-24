@@ -35,7 +35,7 @@
                                         $count = 1;
                                     @endphp
                                     @isset($menu)
-                                        <input type="text" value="{{ $menu->id }}" name="menu_id"
+                                        <input type="hidden" value="{{ $menu->id }}" name="menu_id"
                                             class="form-control" />
                                         <div class="menu-fields col-md-6">
                                             <button class="btn btn-outline-secondary" data-count="{{ $count }}"
