@@ -35,7 +35,7 @@
                                         $count = 1;
                                     @endphp
                                     @isset($menu)
-                                        <div class="menu-fields">
+                                        <div class="menu-fields col-md-6">
                                             <button class="btn btn-outline-secondary" data-count="{{ $count }}"
                                                 id="add_value_field" type="button" id="button-addon2">+</button>
                                             @foreach ($menu->menu as $i)
