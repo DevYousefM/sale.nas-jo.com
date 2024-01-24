@@ -48,8 +48,8 @@ class PostController extends Controller
         $categories = Category::all();
         $countries = Country::all();
         $clients = Client::all();
-        return $categories;
-        // return view('admin.post.create', compact('categories', 'countries', 'clients'));
+        // return $categories;
+        return view('admin.post.create', compact('categories', 'countries', 'clients'));
     } //end of create function
 
     /**
