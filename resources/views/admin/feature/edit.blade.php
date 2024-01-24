@@ -78,7 +78,7 @@
 
                 var inputElement =
                     `<label class="form-label" for="multicol-price">New Value</label>
-                    <div class="input-group">
+                    <div class="input-group col-md-6">
                         <input type="text" name="values[]" class="form-control" />
                     </div>`;
                 addValueField.closest('.menu-fields').innerHTML += inputElement;
