@@ -88,7 +88,10 @@ class FeatureController extends Controller
         $feature->update($request_data);
         $menu = Menu::find($request->menu_id);
         if ($menu) {
-            $menu->update(["menu" => json_encode($request->values)]);
+            $_menu = array_filter($request->values, function ($value) {
+                return $value !== null;
+            });
+            $menu->update(["menu" => json_encode($_menu)]);
         }
         session()->flash('success', __('admin.updated_successfully'));
         return redirect()->route('feature.index');
