@@ -46,7 +46,7 @@ class FeatureController extends Controller
         // return $request;
         $request_data = $request->all();
         $feature = Feature::create($request_data);
-        $menu = array_filter($feature->values, function ($value) {
+        $menu = array_filter($request->values, function ($value) {
             return $value !== null;
         });
 
