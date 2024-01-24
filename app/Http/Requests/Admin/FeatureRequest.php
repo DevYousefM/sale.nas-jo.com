@@ -46,9 +46,7 @@ class FeatureRequest extends FormRequest
             $messages["name:$lang" . ".required"] = __('admin.name_' . $lang . '_required');
             $messages["name:$lang" . ".unique"] = __('admin.name_' . $lang . '_unique');
         }
-        $method = $this->request->get('_method');
-        if ($method != 'put')
-            $messages['inputType.required'] = __('admin.inputType_required');
+        $messages['inputType.required'] = __('admin.inputType_required');
         return $messages;
     } //end of messages
 
