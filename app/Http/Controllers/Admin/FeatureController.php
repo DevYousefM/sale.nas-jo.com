@@ -80,15 +80,18 @@ class FeatureController extends Controller
      */
     public function update(FeatureRequest $request, $id)
     {
-        // foreach (config('translatable.locales') as $key => $lang) {
-        //     $except[$key] = "id:$lang";
-        // }
-        // $request_data = $request->all();
-        // $feature = Feature::findOrFail($id);
-        // $feature->update($request_data);
-        // session()->flash('success', __('admin.updated_successfully'));
-        // return redirect()->route('feature.index');
-        return $request;
+        foreach (config('translatable.locales') as $key => $lang) {
+            $except[$key] = "id:$lang";
+        }
+        $request_data = $request->all();
+        $feature = Feature::findOrFail($id);
+        $feature->update($request_data);
+        $menu = Menu::find($request->menu_id);
+        if ($menu) {
+            $menu->update(["menu" => json_encode($request->values)]);
+        }
+        session()->flash('success', __('admin.updated_successfully'));
+        return redirect()->route('feature.index');
     } //end of updated function
 
     /**
