@@ -15,5 +15,8 @@ class Feature extends Model
     {
         return $this->belongsToMany(SubCategory::class, 'feature_sub_category');
     }//end of subcategories function
-
+    public function menu()
+    {
+        return $this->hasOne(Menu::class);
+    }
 }//end of class
