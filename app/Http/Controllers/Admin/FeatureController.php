@@ -72,6 +72,7 @@ class FeatureController extends Controller
         $feature = Feature::findOrFail($id);
         if ($feature->inputType === "menu") {
             $menu = Menu::where("feature_id", $feature->id)->first();
+            $menu->menu = json_decode($menu->menu);
             // return view('admin.feature.edit', compact('feature', 'menu'));
             return $menu;
         }
