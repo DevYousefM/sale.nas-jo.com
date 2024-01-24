@@ -87,31 +87,19 @@
             }
         });
         document.addEventListener('click', function(event) {
-    var addValueField = document.getElementById('add_value_field');
+            var addValueField = document.getElementById('add_value_field');
 
-    if (event.target && event.target.id === 'add_value_field') {
-        numberOfField++;
+            if (event.target && event.target.id === 'add_value_field') {
+                numberOfField++;
 
-        var label = document.createElement('label');
-        label.className = 'form-label';
-        label.htmlFor = 'multicol-price';
-        label.textContent = 'Value ' + numberOfField;
+                var inputElement =
+                    `<label class="form-label" for="multicol-price">Value ${numberOfField}</label>
+            <div class="input-group">
+                <input type="text" name="values[]" class="form-control" />
+            </div>`;
 
-        var inputGroup = document.createElement('div');
-        inputGroup.className = 'input-group';
-
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'values[]';
-        input.className = 'form-control';
-
-        inputGroup.appendChild(input);
-        
-        var menuFields = addValueField.closest('.menu-fields');
-        menuFields.appendChild(label);
-        menuFields.appendChild(inputGroup);
-    }
-});
-
+                addValueField.closest('.menu-fields').innerHTML += inputElement;
+            }
+        });
     </script>
 @endsection
