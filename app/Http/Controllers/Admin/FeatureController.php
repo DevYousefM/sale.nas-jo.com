@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FeatureRequest;
 use App\Models\Feature;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class FeatureController extends Controller
@@ -18,11 +19,11 @@ class FeatureController extends Controller
     {
         // $features = Feature::paginate(15);
         $data = $request->all();
-        $features = Feature::whereHas('translations', function($query) use ($request){
-            return $query->where('name','like','%'.$request->search.'%');
+        $features = Feature::whereHas('translations', function ($query) use ($request) {
+            return $query->where('name', 'like', '%' . $request->search . '%');
         })->paginate(15);
-        return view('admin.feature.index',compact('features','data'));
-    }//end of index function
+        return view('admin.feature.index', compact('features', 'data'));
+    } //end of index function
 
     /**
      * Show the form for creating a new resource.
@@ -32,7 +33,7 @@ class FeatureController extends Controller
     public function create()
     {
         return view('admin.feature.create');
-    }//end of create function
+    } //end of create function
 
     /**
      * Store a newly created resource in storage.
@@ -42,12 +43,21 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        // $request_data = $request->all();
-        // Feature::create($request_data);
-        // session()->flash('success', __('admin.created_successfully'));
-        // return redirect()->route('feature.index');
-    }//end of store fiunction
+        // return $request;
+        $request_data = $request->all();
+        $feature = Feature::create($request_data);
+        $menu = array_filter($feature->values, function ($value) {
+            return $value !== null;
+        });
+
+        Menu::create([
+            "feature_id" => $feature->id,
+            "menu" => json_encode($menu),
+        ]);
+
+        session()->flash('success', __('admin.created_successfully'));
+        return redirect()->route('feature.index');
+    } //end of store fiunction
 
 
 
@@ -60,8 +70,8 @@ class FeatureController extends Controller
     public function edit($id)
     {
         $feature = Feature::findOrFail($id);
-        return view('admin.feature.edit',compact('feature'));
-    }//end of edit function
+        return view('admin.feature.edit', compact('feature'));
+    } //end of edit function
 
     /**
      * Update the specified resource in storage.
@@ -72,7 +82,7 @@ class FeatureController extends Controller
      */
     public function update(FeatureRequest $request, $id)
     {
-        foreach(config('translatable.locales') as $key=>$lang){
+        foreach (config('translatable.locales') as $key => $lang) {
             $except[$key] = "id:$lang";
         }
         $request_data = $request->all();
@@ -80,7 +90,7 @@ class FeatureController extends Controller
         $feature->update($request_data);
         session()->flash('success', __('admin.updated_successfully'));
         return redirect()->route('feature.index');
-    }//end of updated function
+    } //end of updated function
 
     /**
      * Remove the specified resource from storage.
@@ -94,6 +104,6 @@ class FeatureController extends Controller
         $feature->delete();
         session()->flash('success', __('admin.deleted_successfully'));
         return redirect()->route('feature.index');
-    }//end of destroy function
+    } //end of destroy function
 
 }//end of class
