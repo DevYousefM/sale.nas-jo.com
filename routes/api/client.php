@@ -44,7 +44,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'client', 'namespace' => 'Api
 });
 
 Route::group(['middleware' => ['api', 'auth.guard:client-api'], 'prefix' => 'client', 'namespace' => 'Api\Client'], function () {
-    Route::post('logout', 'AuthController@logout')->middleware('auth.guard:client-api');
+    Route::post('logout', 'AuthController@logout');
     Route::post('account/update', 'AccountController@updateAccount');
     Route::get('post/{id}/add-favorite', 'PostController@postAddFavorite');
     Route::get('post/{id}/remove-favorite', 'PostController@postRemoveFavorite');
