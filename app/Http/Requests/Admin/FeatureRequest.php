@@ -24,29 +24,32 @@ class FeatureRequest extends FormRequest
     public function rules()
     {
         $method = $this->request->get('_method');
-        if($method != 'put'){
+        if ($method != 'put') {
             $rules = array();
             foreach (config('translatable.locales') as  $lang) {
                 $rules["name:$lang"] = "required|unique:feature_translations,name";
             }
-        }else{
+        } else {
             $rules = array();
             foreach (config('translatable.locales') as  $lang) {
-                $rules["name:$lang"] = "required|unique:feature_translations,name,".$this->request->get('id:'.$lang);
+                $rules["name:$lang"] = "required|unique:feature_translations,name," . $this->request->get('id:' . $lang);
             }
         }
         $rules['inputType'] = 'required';
         return $rules;
-    }//end of rules function
+    } //end of rules function
 
-    public function messages(){
+    public function messages()
+    {
         $messages = array();
         foreach (config('translatable.locales') as  $lang) {
-            $messages["name:$lang".".required"] = __('admin.name_'.$lang.'_required');
-            $messages["name:$lang".".unique"] = __('admin.name_'.$lang.'_unique');
+            $messages["name:$lang" . ".required"] = __('admin.name_' . $lang . '_required');
+            $messages["name:$lang" . ".unique"] = __('admin.name_' . $lang . '_unique');
         }
-        $messages['inputType.required'] = __('admin.inputType_required');
+        $method = $this->request->get('_method');
+        if ($method != 'put')
+            $messages['inputType.required'] = __('admin.inputType_required');
         return $messages;
-    }//end of messages
+    } //end of messages
 
 }//end of class
