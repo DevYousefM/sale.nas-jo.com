@@ -40,12 +40,13 @@ class FeatureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FeatureRequest $request)
+    public function store(Request $request)
     {
-        $request_data = $request->all();
-        Feature::create($request_data);
-        session()->flash('success', __('admin.created_successfully'));
-        return redirect()->route('feature.index');
+        return $request;
+        // $request_data = $request->all();
+        // Feature::create($request_data);
+        // session()->flash('success', __('admin.created_successfully'));
+        // return redirect()->route('feature.index');
     }//end of store fiunction
 
 

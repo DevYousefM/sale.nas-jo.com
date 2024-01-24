@@ -94,10 +94,9 @@
 
                 var inputElement =
                     `<label class="form-label" for="multicol-price">Value ${numberOfField}</label>
-            <div class="input-group">
-                <input type="text" name="values[]" class="form-control" />
-            </div>`;
-
+                    <div class="input-group">
+                        <input type="text" name="values[]" class="form-control" />
+                    </div>`;
                 addValueField.closest('.menu-fields').innerHTML += inputElement;
             }
         });
