@@ -87,14 +87,17 @@
             }
         });
 
-        $("#add_value_field").on('click', function() {
-            numberOfField++
-            var inputElement =
-                `<label class="form-label" for="multicol-price">Value ${numberOfField}</label>
+        document.getElementById('add_value_field').addEventListener('click', function() {
+            numberOfField++;
+            var inputElement = document.createElement('div');
+            inputElement.innerHTML = `
+                <label class="form-label" for="multicol-price">Value ${numberOfField}</label>
                 <div class="input-group">
                     <input type="text" name="values[]" class="form-control" />
                 </div>`;
-            $(this).closest('.menu-fields').append(inputElement);
+
+            var menuFields = this.closest('.menu-fields');
+            menuFields.appendChild(inputElement);
         });
     </script>
 @endsection
