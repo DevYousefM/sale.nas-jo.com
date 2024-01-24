@@ -252,6 +252,7 @@
                 success: function(response) {
                     $('.div_features').css("display", "block");
                     var data = response.data;
+                    console.log(data);
                     $('.features').empty();
                     $.each(data, function(key, val) {
                         console.log(val);
