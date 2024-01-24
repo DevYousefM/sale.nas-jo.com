@@ -29,9 +29,9 @@ class FeatureRequest extends FormRequest
             foreach (config('translatable.locales') as  $lang) {
                 $rules["name:$lang"] = "required|unique:feature_translations,name";
             }
-            $rules['inputType'] = 'required';
         } else {
             $rules = array();
+            $rules['inputType'] = 'required';
             foreach (config('translatable.locales') as  $lang) {
                 $rules["name:$lang"] = "required|unique:feature_translations,name," . $this->request->get('id:' . $lang);
             }
