@@ -37,7 +37,7 @@
                                     @isset($menu)
                                         <div class="menu-fields col-md-6">
                                             <button class="btn btn-outline-secondary" data-count="{{ $count }}"
-                                                id="add_value_field" type="button" id="button-addon2">+</button>
+                                                id="add_value_field" type="button" id="button-addon2">{{ __('admin.add_new_value') }}</button>
                                             @foreach ($menu->menu as $i)
                                                 <div class="col-md-6">
                                                     <label class="form-label" for="multicol-price">Value
